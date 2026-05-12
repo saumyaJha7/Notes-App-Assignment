@@ -10,15 +10,23 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NoteCard from "../components/NoteCard";
+import { useState } from "react";
 
 export default function NotesListScreen({
   theme,
   isDark,
   setIsDark,
   setCurrentScreen,
-  notes
+  notes,
 }: any) {
   const { width } = useWindowDimensions();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredNotes = notes.filter(
+    (note: any) =>
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   return (
     <SafeAreaView
@@ -49,10 +57,12 @@ export default function NotesListScreen({
             borderColor: theme.border,
           },
         ]}
+        value={searchQuery}
+        onChangeText={setSearchQuery}
       />
 
       <FlatList
-        data={notes}
+        data={filteredNotes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <NoteCard
@@ -62,6 +72,13 @@ export default function NotesListScreen({
             theme={theme}
           />
         )}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <Text style={{ color: theme.subText }}>
+              No matching notes found
+            </Text>
+          </View>
+        }
       />
 
       <Pressable

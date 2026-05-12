@@ -37,12 +37,6 @@ export default function App() {
     </>
     
   )
-
-  return <NotesListScreen 
-  theme={theme} 
-  isDark={isDark}
-  setIsDark={setIsDark}
-  />;
 }
 
 const themes = {
@@ -53,7 +47,7 @@ const themes = {
     subText: "#666666",
     border: "#E5E5E5",
     input: "#FFFFFF",
-    primary: "#6C63FF",
+    primary: "#8ac1da",
   },
   dark: {
     background: "#121212",
@@ -62,6 +56,6 @@ const themes = {
     subText: "#AAAAAA",
     border: "#2A2A2A",
     input: "#1A1A1A",
-    primary: "#8B80FF",
+    primary: "#b4dbe5",
   },
 };
